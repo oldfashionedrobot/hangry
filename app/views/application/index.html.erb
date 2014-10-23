@@ -1,5 +1,6 @@
 <div ng-controller="ListController"  class="container">
-  <h1>Eat at <span style="color:red">{{ choice.name }}</span>. You rated it {{ choice.rating }} out of 5. You last went there {{ prettyDate( choice.last_visit ) }}.</h1>
+  <h1 ng-show="choice.name != undefined">Eat at <span style="color:red">{{ choice.name }}</span>. You rated it {{ choice.rating }} out of 5. You last went there {{ prettyDate( choice.last_visit ) }}.</h1>
+  <h1 ng-hide="choice.name != undefined">You don't have any restaurants. Add some.</h1>
   <h2>Here's all your restaurants</h2>
   <table class="table table-striped">
     <tr>

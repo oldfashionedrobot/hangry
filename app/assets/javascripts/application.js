@@ -55,9 +55,13 @@ APP.run(function($rootScope) {
 });
 
 APP.controller('ListController', ['$scope', '$http', function ($scope, $http) {
-  $http.get( '/restaurants/pick.json' ).success( function( data ) {
-    $scope.choice = data;
-  });
+  
+  $scope.pickRestaurant = function() {
+    $http.get( '/restaurants/pick.json' ).success( function( data ) {
+      $scope.choice = data;
+    });
+  }
+  $scope.pickRestaurant();
 
   $http.get( '/restaurants.json' ).success( function( data ) {
     for( var i=0; i < data.length; i++ ) data[i].editing = false;
@@ -68,6 +72,7 @@ APP.controller('ListController', ['$scope', '$http', function ($scope, $http) {
     $http.delete( '/restaurants/' + item.id + '.json' ).success( function( data ) {
       $( event.target ).parent().parent().remove();
       $scope.list.splice( $.inArray( item, $scope.list ), 1 );
+      $scope.pickRestaurant();
     });
   };
   
@@ -80,6 +85,7 @@ APP.controller('ListController', ['$scope', '$http', function ($scope, $http) {
         params: { name: item.name, rating: item.rating, last_visit: item.last_visit }
       }).success( function( data ) {
         item.editing = false;
+        $scope.pickRestaurant();
       });
     }
   };
@@ -94,6 +100,7 @@ APP.controller('ListController', ['$scope', '$http', function ($scope, $http) {
       params: newGuy
     }).success( function( data ) {
       $scope.list.push(data);
+      $scope.pickRestaurant();
     });
   }
 }]);
