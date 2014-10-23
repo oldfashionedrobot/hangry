@@ -1,0 +1,32 @@
+<div ng-controller="ListController"  class="container">
+  <h1>Eat at <span style="color:red">{{ choice.name }}</span>. You rated it {{ choice.rating }} out of 5. You last went there {{ prettyDate( choice.last_visit ) }}.</h1>
+  <h2>Here's all your restaurants</h2>
+  <table class="table table-striped">
+    <tr>
+      <th>Name</th>
+      <th>Rating</th>
+      <th>Last Visit</th>
+      <th></th>
+    </tr>
+    <tr ng-repeat="item in list">
+      <td>
+        <span ng-hide="item.editing" ng-bind="item.name"></span>
+        <input type="text" ng-model="item.name" ng-show="item.editing"/>
+      </td>
+      <td>
+        <span ng-hide="item.editing" ng-bind="item.rating + '/5'"></span>
+        <input type="number" ng-model="item.rating" ng-show="item.editing"/>
+      </td>
+      <td>
+        <span ng-hide="item.editing" ng-bind="prettyDate( item.last_visit )"></span>
+        <input datepicker type="text" ng-model="item.last_visit" ng-show="item.editing"/>
+      </td>
+      <td>
+        <a href="Javascript:void(0);" ng-click="editItem( item, $event )" class="btn btn-success" ng-hide="item.editing">Edit</a>
+        <a href="Javascript:void(0);" ng-click="editItem( item, $event )" class="btn btn-success" ng-show="item.editing">Save</a>
+        <a href="Javascript:void(0);" ng-click="deleteItem( item, $event )" class="btn btn-danger">Delete</a>
+      </td>
+    </tr>
+  </table>
+  <a href="Javascript:void(0);" class="btn btn-primary" ng-click="createItem( $event )">Add Restaurant</a>
+</div>
